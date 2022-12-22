@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import tn.esprit.springprojectcs.entities.Departement;
 import tn.esprit.springprojectcs.entities.Etudiant;
+import tn.esprit.springprojectcs.repository.DepartementRepository;
 import tn.esprit.springprojectcs.repository.EtudiantRepositoy;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class EtudiantServiceImpl implements IEtudiantService{
 
    // @Autowired // pour injecter un bean dans un autre bean
     EtudiantRepositoy etudiantRepositoy;
-
+    DepartementRepository departementRepository;
 
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
@@ -45,4 +47,14 @@ public class EtudiantServiceImpl implements IEtudiantService{
     public void removeEtudiant(Integer idEtudiant) {
         etudiantRepositoy.deleteById(idEtudiant);
     }
+
+    @Override
+    public void assignEtudiantToDepartement(Integer etudiantId, Integer departementId) {
+        Etudiant etudiant = etudiantRepositoy.findById(etudiantId).orElse(null);
+        Departement departement = departementRepository.findById(departementId).orElse(null);
+        etudiant.setDepartement(departement);
+        etudiantRepositoy.save(etudiant);
+    }
+
+
 }

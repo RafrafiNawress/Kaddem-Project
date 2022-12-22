@@ -34,6 +34,10 @@ public class EtudiantController {
         etudiantService.removeEtudiant(idEtudiant);
     }
 
+    @PutMapping("/assignEtudiantToDepartement/{etudiantId}/{departementId}")
+    public void assignEtudiantToDepartement(@PathVariable Integer etudiantId,@PathVariable Integer departementId) {
+        etudiantService.assignEtudiantToDepartement(etudiantId,departementId);
+    }
 
 
-}
+    }
